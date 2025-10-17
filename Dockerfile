@@ -1,5 +1,5 @@
-# 使用官方 PHP 8.2 镜像
-FROM php:8.2-cli
+# 使用 PHP 7.4 镜像（Laravel 5.5 兼容）
+FROM php:7.4-cli
 
 # 设置工作目录
 WORKDIR /app
