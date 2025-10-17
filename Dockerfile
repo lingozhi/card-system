@@ -4,10 +4,11 @@ FROM php:8.2-cli
 # 设置工作目录
 WORKDIR /app
 
-# 安装系统依赖
+# 安装系统依赖和开发库
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    libcurl4-openssl-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -19,13 +20,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 PHP 扩展
+# 注意：curl、dom、simplexml、xml 在 PHP 8.2 中已经内置，不需要单独安装
 RUN docker-php-ext-install \
     pdo_mysql \
-    mbstring \
-    xml \
-    dom \
-    simplexml \
-    curl
+    mbstring
 
 # 安装 Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
